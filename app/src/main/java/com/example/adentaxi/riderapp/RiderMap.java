@@ -21,6 +21,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -41,7 +42,7 @@ public class RiderMap extends FragmentActivity implements OnMapReadyCallback {
     private final String TAG = "RiderMap.class";
     ImageView btn_logout;
     Map<String, String> mMarkerMap = new HashMap<>();
-    ArrayList<DriverInfo> DriverInfo = new ArrayList<>();
+    ArrayList<DriverInfo> driverInfos = new ArrayList<>();
     private GoogleMap mGoogleMap;
 
     @Override
@@ -149,35 +150,39 @@ public class RiderMap extends FragmentActivity implements OnMapReadyCallback {
                             String name = snapshot.child("name")
                                     .getValue(String.class);
                             Log.d(TAG,_loadAllDriversActive+" onDataChange "+name);
-//                            String email = snapshot.child("email")
-//                                    .getValue(String.class);
-//                            String car_name = snapshot.child("car_name")
-//                                    .getValue(String.class);
-//                            LatLng driver_location = snapshot.child("driver_location")
-//                                    .getValue(LatLng.class);
+                            String email = snapshot.child("email")
+                                    .getValue(String.class);
+                            String car_name = snapshot.child("car_name")
+                                    .getValue(String.class);
+                            Double driverLatitude  = snapshot.child("driverLatitude")
+                                    .getValue(Double.class);
+                            Double driverLongitude  = snapshot.child("driverLongitude")
+                                    .getValue(Double.class);
 
-                            DriverInfo driverInfo = snapshot.getValue(DriverInfo.class);
-                            DriverInfo.add(driverInfo);
 
-                        }
-                        for (int i = 0; i < DriverInfo.size(); i++) {
-                            if (mGoogleMap != null) {
-                                Marker marker = mGoogleMap.addMarker(new MarkerOptions()
-                                        .position(DriverInfo.get(i).getDriverLocation())
-                                        .title(DriverInfo.get(i).getName())
-                                        .snippet(DriverInfo.get(i).getCar_name())
-                                );
+                            DriverInfo driverInfo = dataSnapshot.getValue(DriverInfo.class);
+                            driverInfos.add(driverInfo);
+                            LatLng driver_location = new LatLng(driverLatitude,driverLongitude);
+                            for (int i = 0; i < driverInfos.size(); i++) {
+                                if (mGoogleMap != null) {
+                                    Marker marker = mGoogleMap.addMarker(new MarkerOptions()
+                                            .position(driver_location)
+                                            .title(name + car_name)
+                                            .snippet(email)
+                                    );
 
-                                mMarkerMap.put(marker.getId(), DriverInfo.get(i).getEmail());
-                                LatLngBounds.Builder builder = new LatLngBounds.Builder();
-                                builder.include(DriverInfo.get(i).getDriverLocation());
-                                LatLngBounds bounds = builder.build();
-                                CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 200);
-                                mGoogleMap.moveCamera(cu);
-                                mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(11), 2000, null);
+                                    mMarkerMap.put(marker.getId(), email);
+                                    LatLngBounds.Builder builder = new LatLngBounds.Builder();
+                                    builder.include(driver_location);
+                                    LatLngBounds bounds = builder.build();
+                                    CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 200);
+                                    mGoogleMap.moveCamera(cu);
+                                    mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(11), 2000, null);
 
+                                }
                             }
                         }
+
 
                     }
 
