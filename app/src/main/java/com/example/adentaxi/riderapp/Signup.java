@@ -28,7 +28,6 @@ public class Signup extends AppCompatActivity {
     ActivitySignupBinding binding;
 
     private EditText inputName,inputEmail,inputPassword;
-    private Button btn_SignUp;
     private ImageButton back;
     private FirebaseAuth Auth;
     DatabaseReference databaseReference;
@@ -44,11 +43,11 @@ public class Signup extends AppCompatActivity {
         Auth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference("Riders");
 
-        inputName = (EditText)findViewById(R.id.et_full_name);
-        inputEmail = (EditText)findViewById(R.id.et_email_address);
-        inputPassword = (EditText)findViewById(R.id.et_password);
-        btn_SignUp = (Button)findViewById(R.id.btn_signup);
-        back = (ImageButton) findViewById(R.id.back);
+        inputName = findViewById(R.id.et_full_name);
+        inputEmail = findViewById(R.id.et_email_address);
+        inputPassword = findViewById(R.id.et_password);
+        Button btn_SignUp = findViewById(R.id.btn_signup);
+        back = findViewById(R.id.back);
 
 
         btn_SignUp.setOnClickListener(new View.OnClickListener() {
