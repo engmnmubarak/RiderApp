@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="#ed6f3e"
+        android:id="@+id/view" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="بيانات السائق"
+        android:id="@+id/textView"
+        android:gravity="center"
+        android:textSize="30dp"
+        android:textColor="#ffffff"
+        android:layout_alignBottom="@+id/view"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:id="@+id/profileImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="80dp"
+        android:scaleType="centerCrop"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        />
+
+    <LinearLayout
+        android:id="@+id/linLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20sp"
+        android:layout_below="@+id/profileImage"
+        >
+
+        <!--Driver Info-->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/changeProfilePhoto"
+            android:layout_marginTop="15dp"
+            android:layout_gravity="right"
+            android:id="@+id/reluser">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/ic_driver_name"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/drivername"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="40dp"
+                android:layout_marginBottom="20sp"
+                android:background="@null"
+                android:inputType="textNoSuggestions"
+                android:hint="اسم السائق"
+                android:layout_alignParentRight="true"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/relLayout5"
+            android:id="@+id/relLayout7"
+            android:layout_marginTop="15dp">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/ic_car_name"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/drivercar"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="40dp"
+                android:layout_marginBottom="20sp"
+                android:background="@null"
+                android:hint="نوع السياره"
+                android:layout_alignParentRight="true"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/relLayout5"
+            android:id="@+id/relLayout6"
+            android:layout_marginTop="15dp">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/ic_phone"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/driverphone"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="40dp"
+                android:layout_marginBottom="20sp"
+                android:background="@null"
+                android:inputType="number"
+                android:hint="رقم الهاتف"
+                android:layout_alignParentRight="true"/>
+
+        </RelativeLayout>
+
+
+        <!-- Call Button -->
+        <Button
+            android:id="@+id/calldriver"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="20dp"
+            android:text="اتصل بالسائق"
+            style="@style/SolidButtonStyle"
+            android:background="#ed6f3e"
+            />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

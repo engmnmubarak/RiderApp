@@ -29,6 +29,7 @@
         <activity android:name=".Signup" />
         <activity android:name=".Login" />
         <activity android:name=".RiderMap" />
+        <activity android:name=".DriverInfoActivity"/>
     </application>
 
 </manifest>

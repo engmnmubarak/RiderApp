@@ -1,6 +1,8 @@
 package com.example.adentaxi.riderapp;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -12,7 +14,9 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.adentaxi.riderapp.Interface.DriverInfo;
@@ -21,6 +25,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
@@ -36,7 +41,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class RiderMap extends FragmentActivity implements OnMapReadyCallback {
+public class RiderMap extends FragmentActivity implements OnMapReadyCallback
+                {
 
     private FirebaseAuth Auth = FirebaseAuth.getInstance();
     private final String TAG = "RiderMap.class";
@@ -102,6 +108,17 @@ public class RiderMap extends FragmentActivity implements OnMapReadyCallback {
                     @Override
                     public void onMapLoaded() {
                         loadAllDriversActive();
+
+                        mGoogleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                            @Override
+                            public boolean onMarkerClick(Marker marker) {
+
+                                Intent intentDriverInfo = new Intent(getApplicationContext(), DriverInfoActivity.class);
+                                intentDriverInfo.putExtra("drivercar",marker.getSnippet().toString());
+                                startActivity(intentDriverInfo);
+                                return false;
+                            }
+                        });
                     }
                 });
             }else{
@@ -154,6 +171,8 @@ public class RiderMap extends FragmentActivity implements OnMapReadyCallback {
                                     .getValue(String.class);
                             String car_name = snapshot.child("car_name")
                                     .getValue(String.class);
+                            String phone = snapshot.child("phone")
+                                    .getValue(String.class);
                             Double driverLatitude  = snapshot.child("driverLatitude")
                                     .getValue(Double.class);
                             Double driverLongitude  = snapshot.child("driverLongitude")
@@ -167,9 +186,9 @@ public class RiderMap extends FragmentActivity implements OnMapReadyCallback {
                                 if (mGoogleMap != null) {
                                     Marker marker = mGoogleMap.addMarker(new MarkerOptions()
                                             .position(driver_location)
-                                            .title(name + car_name)
-                                            .snippet(email)
-                                    );
+                                            .title("السائق : "+ name)
+                                            .snippet("تلفون: "+ phone)
+                                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_adentxicar)));
 
                                     mMarkerMap.put(marker.getId(), email);
                                     LatLngBounds.Builder builder = new LatLngBounds.Builder();
@@ -192,4 +211,9 @@ public class RiderMap extends FragmentActivity implements OnMapReadyCallback {
                     }
                 });
     }
+
+
+
+
+
 }
