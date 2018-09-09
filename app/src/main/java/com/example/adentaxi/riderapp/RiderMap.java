@@ -1,8 +1,6 @@
 package com.example.adentaxi.riderapp;
 
 import android.Manifest;
-import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -14,9 +12,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.adentaxi.riderapp.Interface.DriverInfo;
@@ -54,7 +50,7 @@ public class RiderMap extends FragmentActivity implements OnMapReadyCallback
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.rider_map);
+        setContentView(R.layout.activity_rider_map);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -211,9 +207,5 @@ public class RiderMap extends FragmentActivity implements OnMapReadyCallback
                     }
                 });
     }
-
-
-
-
 
 }

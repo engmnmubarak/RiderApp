@@ -6,11 +6,7 @@
     <string name="signup_title">انشاء حساب جديد</string>
 
     <!--Welcome messages-->
-    <string name="splash_welcome_txt">Easiest way to\nbe Driver</string>
-    <string name="login_welcome_txt">Hello there !\nWelcome Back</string>
-    <string name="signup_welcome_txt">Hello there !\nWelcome to you</string>
     <string name="aden">عدن تاكسي</string>
-
 
     <!--Button labels-->
     <string name="login_btn_label">تسجيل الدخول</string>

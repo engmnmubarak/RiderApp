@@ -70,29 +70,4 @@ public class DriverInfoActivity extends AppCompatActivity {
 
     }
 
-    /*private void loadDriverInfo(){
-        *//*FirebaseDatabase.getInstance().getReference("Drivers").orderByChild("phone").equalTo(driver_phone)
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        for(DataSnapshot snapshot:dataSnapshot.getChildren()){
-                            String name=snapshot.child("name").getValue(String.class);
-                            eName.setText(name);
-                            String blood=snapshot.child("bloodgrp").getValue(String.class);
-                            String dob=snapshot.child("dob").getValue(String.class);
-                            String sex=snapshot.child("sex").getValue(String.class);
-                            String phone=snapshot.child("number").getValue(String.class);
-
-                            eDob.setText(dob);
-                            ePhone.setText(phone);
-                            eSex.setText(sex);
-                            eBloodgrp.setText(blood);
-                        }
-                    }
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });*//*
-    }*/
 }
