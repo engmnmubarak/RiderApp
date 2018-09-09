@@ -114,7 +114,7 @@ public class RiderMap extends FragmentActivity implements OnMapReadyCallback
                             public boolean onMarkerClick(Marker marker) {
 
                                 Intent intentDriverInfo = new Intent(getApplicationContext(), DriverInfoActivity.class);
-                                intentDriverInfo.putExtra("drivercar",marker.getSnippet().toString());
+                                intentDriverInfo.putExtra("phone",marker.getSnippet());
                                 startActivity(intentDriverInfo);
                                 return false;
                             }
@@ -187,10 +187,10 @@ public class RiderMap extends FragmentActivity implements OnMapReadyCallback
                                     Marker marker = mGoogleMap.addMarker(new MarkerOptions()
                                             .position(driver_location)
                                             .title("السائق : "+ name)
-                                            .snippet("تلفون: "+ phone)
+                                            .snippet(phone)
                                             .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_adentxicar)));
 
-                                    mMarkerMap.put(marker.getId(), email);
+                                    mMarkerMap.put(marker.getId(),phone);
                                     LatLngBounds.Builder builder = new LatLngBounds.Builder();
                                     builder.include(driver_location);
                                     LatLngBounds bounds = builder.build();
