@@ -10,16 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <!--<Button
-        android:id="@+id/btn_active"
-        style="@style/SolidButtonStyle"
-        android:layout_width="match_parent"
-        android:layout_below="@id/et_password"
-        android:text="@string/getdriver_btn_label"
-        android:layout_gravity="bottom"
-        android:layout_marginRight="40dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginBottom="20dp"/>-->
 
     <ImageView android:id="@+id/logout"
         android:src="@drawable/logout"
@@ -30,12 +20,12 @@
         android:layout_marginTop="30dp"
     />
 
-    <ImageView android:id="@+id/mylocation"
+    <!--<ImageView android:id="@+id/mylocation"
         android:src="@drawable/mylocation"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_gravity="left"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="30dp"
-        />
+        />-->
 </FrameLayout>
