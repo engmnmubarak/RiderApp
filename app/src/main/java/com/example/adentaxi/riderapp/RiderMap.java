@@ -63,7 +63,7 @@ public class RiderMap extends FragmentActivity implements OnMapReadyCallback
             public void onClick(View v) {
                         //Set Message and Title
                     AlertDialog.Builder builder = new AlertDialog.Builder(RiderMap.this);
-                    builder.setMessage("هل انت متأكد انك تريد تسجيل الخروج من تطبيق عدن تاكسي")
+                    builder.setMessage("هل تريد تسجيل الخروج من تطبيق عدن تاكسي؟")
                             .setTitle("تاكيد تسجيل الخروج                  ");
 
                     //Set When SEND Button Click
@@ -124,6 +124,67 @@ public class RiderMap extends FragmentActivity implements OnMapReadyCallback
 
     }
 
+    private void loadAllDriversActive(){
+                        final String _loadAllDriversActive ="loadAllDriversActive";
+                        Log.d(TAG,"loadAllDriversActive");
+
+                        FirebaseDatabase.getInstance()
+                                .getReference("Drivers")
+                                .orderByChild("driver_active")
+                                .equalTo("1")
+                                .addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        mGoogleMap.clear();
+                                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                            String name = snapshot.child("name")
+                                                    .getValue(String.class);
+                                            Log.d(TAG,_loadAllDriversActive+" onDataChange "+name);
+                                            String email = snapshot.child("email")
+                                                    .getValue(String.class);
+                                            String car_name = snapshot.child("car_name")
+                                                    .getValue(String.class);
+                                            String phone = snapshot.child("phone")
+                                                    .getValue(String.class);
+                                            Double driverLatitude  = snapshot.child("driverLatitude")
+                                                    .getValue(Double.class);
+                                            Double driverLongitude  = snapshot.child("driverLongitude")
+                                                    .getValue(Double.class);
+
+
+                                            DriverInfo driverInfo = dataSnapshot.getValue(DriverInfo.class);
+                                            driverInfos.add(driverInfo);
+                                            LatLng driver_location = new LatLng(driverLatitude,driverLongitude);
+                                            for (int i = 0; i < driverInfos.size(); i++) {
+                                                if (mGoogleMap != null) {
+                                                    Marker marker = mGoogleMap.addMarker(new MarkerOptions()
+                                                            .position(driver_location)
+                                                            .title("السائق : "+ name)
+                                                            .snippet(phone)
+                                                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_adentxicar)));
+
+                                                    mMarkerMap.put(marker.getId(),phone);
+                                                    LatLngBounds.Builder builder = new LatLngBounds.Builder();
+                                                    builder.include(driver_location);
+                                                    LatLngBounds bounds = builder.build();
+                                                    CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 200);
+                                                    mGoogleMap.moveCamera(cu);
+                                                    mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(11), 2000, null);
+
+                                                }
+                                            }
+                                        }
+
+
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
+                    }
+
     // check Location Permission to use and display the map
     private void checkLocationPermission() {
         Log.d(TAG,"checkLocationPermission");
@@ -147,65 +208,5 @@ public class RiderMap extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
-    private void loadAllDriversActive(){
-        final String _loadAllDriversActive ="loadAllDriversActive";
-        Log.d(TAG,"loadAllDriversActive");
-
-        FirebaseDatabase.getInstance()
-                .getReference("Drivers")
-                .orderByChild("driver_active")
-                .equalTo("1")
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        mGoogleMap.clear();
-                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                            String name = snapshot.child("name")
-                                    .getValue(String.class);
-                            Log.d(TAG,_loadAllDriversActive+" onDataChange "+name);
-                            String email = snapshot.child("email")
-                                    .getValue(String.class);
-                            String car_name = snapshot.child("car_name")
-                                    .getValue(String.class);
-                            String phone = snapshot.child("phone")
-                                    .getValue(String.class);
-                            Double driverLatitude  = snapshot.child("driverLatitude")
-                                    .getValue(Double.class);
-                            Double driverLongitude  = snapshot.child("driverLongitude")
-                                    .getValue(Double.class);
-
-
-                            DriverInfo driverInfo = dataSnapshot.getValue(DriverInfo.class);
-                            driverInfos.add(driverInfo);
-                            LatLng driver_location = new LatLng(driverLatitude,driverLongitude);
-                            for (int i = 0; i < driverInfos.size(); i++) {
-                                if (mGoogleMap != null) {
-                                    Marker marker = mGoogleMap.addMarker(new MarkerOptions()
-                                            .position(driver_location)
-                                            .title("السائق : "+ name)
-                                            .snippet(phone)
-                                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_adentxicar)));
-
-                                    mMarkerMap.put(marker.getId(),phone);
-                                    LatLngBounds.Builder builder = new LatLngBounds.Builder();
-                                    builder.include(driver_location);
-                                    LatLngBounds bounds = builder.build();
-                                    CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 200);
-                                    mGoogleMap.moveCamera(cu);
-                                    mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(11), 2000, null);
-
-                                }
-                            }
-                        }
-
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-    }
 
 }
